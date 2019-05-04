@@ -12,29 +12,87 @@ function generateRandomNumber(min,max){
   return Math.floor(Math.random()*max)+min;
 }
 
-//Si crea una lista di 16 numeri generati random senza doppioni
-var lista_numeri=[];
-var numero;
-while (lista_numeri.lenght<16){
-  var numero=generateRandomNumber(1,100); //Qui si poteva anche inizializzare la i a 0 fuori dal while e aumentarla all'interno del ciclo stesso, mettendo nella condizone del while i<16
-  if (lista_numeri.includes(numero)==false) {
-    lista_numeri.push(numero);
+//Funzione che mi permetta di generare le regole del gioco
+function regolamento(){
+
+  //Si crea una lista di 16 numeri generati random senza doppioni
+  var lista_numeri=[];
+  var numeri;
+  var livello=parseInt(prompt("Scegli un livello di gioco: 0,1,2: "));
+  var i=0;
+    while(i<16){
+      // Condizioni per i vari livelli
+      switch (livello) {
+        case 1:
+          numeri=generateRandomNumber(1,80);
+          break;
+        case 2:
+          numeri=generateRandomNumber(1,50);
+          break;
+        default:
+          numeri=generateRandomNumber(1,100);
+          break;
+      }
+
+      if(lista_numeri.includes(numeri)==false){
+        lista_numeri.push(numeri);
+        i++;
+      }
+    }
+  console.log(lista_numeri);
+
+  // Chiedo all'utente di inserire numeri fino a che non inserisce un numero vietato per un max di 84 inserimenti
+  var trovato, j, numero_utente, punteggio;
+  trovato=false;
+  j=punteggio=0;
+
+  //Regolamento del livello 1
+  if (livello==1) {
+    while(j<64 && trovato==false){
+      numero_utente=parseInt(prompt("Inserisci un numero da 1 a 80!"));
+      if (lista_numeri.includes(numero_utente)) {
+        trovato=true;
+        console.log("Purtroppo hai Perso!")
+      }
+      else{
+        punteggio++;
+      }
+      j++;
+    }
   }
-}
-console.log(lista_numeri);
 
-// Chiedo all'utente di inserire numeri fino a che non inserisce un numero vietato per un max di 84 inserimenti
-var trovato=false;
-var j=0;
-var numero_utente;
-while(j<84){
-  numero_utente=parseInt(prompt("Inserisci un numero da 1 a 100!"));
-  if (lista_numeri.includes(numero_utente)) {
-    trovato=true;
+  //Regolamento del livello 2
+  if (livello==2) {
+    while(j<34 && trovato==false){
+      numero_utente=parseInt(prompt("Inserisci un numero da 1 a 50!"));
+      if (lista_numeri.includes(numero_utente)) {
+        trovato=true;
+        console.log("Purtroppo hai Perso!")
+      }
+      else{
+        punteggio++;
+      }
+      j++;
+    }
   }
-  j++;
+
+  //Regolamento default:livello 0
+  else {
+    while(j<84 && trovato==false){
+      numero_utente=parseInt(prompt("Inserisci un numero da 1 a 100!"));
+      if (lista_numeri.includes(numero_utente)) {
+        trovato=true;
+        console.log("Purtroppo hai Perso!")
+      }
+      else{
+        punteggio++;
+      }
+      j++;
+    }
+  }
+
+  return punteggio;
 }
 
-// Inserisco i numeri dell'utente in un array
-
-// Confronto i numeri random del computer con quelli dell'utente
+var punteggioutente=regolamento();
+console.log(punteggioutente);
