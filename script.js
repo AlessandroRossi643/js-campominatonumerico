@@ -39,6 +39,7 @@ function regolamento(){
         i++;
       }
     }
+  document.getElementById('livello').innerHTML="Il livello che hai scelto è: " + livello;
   console.log(lista_numeri);
 
   // Chiedo all'utente di inserire numeri fino a che non inserisce un numero vietato per un max di 84 inserimenti
@@ -90,9 +91,10 @@ function regolamento(){
       j++;
     }
   }
-
+  document.getElementById("numeriscelti").innerHTML="Peccato, il numero che hai appena inserito era un mina! " + numero_utente;
   return punteggio;
 }
 
 var punteggioutente=regolamento();
+document.getElementById("punteggio").innerHTML="Il punteggio che hai totalizzato è: "+ punteggioutente;
 console.log(punteggioutente);
